@@ -23,3 +23,8 @@
   - fix navigations in the nav bar (login, register, logout)
   - render login page
   - render register page  
+11. Add User model
+  - simple validation in Schema
+  - add method for register
+  - create first user record in the db 
+  - validate password missmatch  
