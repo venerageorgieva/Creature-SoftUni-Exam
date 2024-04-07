@@ -28,3 +28,7 @@
   - add method for register
   - create first user record in the db 
   - validate password missmatch  
+  - validate email already exists 
+12. Hash password
+  - install bcrypt   
+  - hash password
