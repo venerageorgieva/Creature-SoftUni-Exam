@@ -8,3 +8,5 @@
 5. Add html files in views directory 
 6. Install express-handlebars
   - configure view engine
+  - add main layout
+  - fix public styles hyperlinks
