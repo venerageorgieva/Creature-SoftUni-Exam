@@ -19,7 +19,7 @@ app.set("views", "src/views");
 //Routes
 app.get("/", (req, res) => {
   //res.send("Hello home page!");
-  res.render("layouts/main");
+  res.render("home");
 });
 
 app.use(routes);

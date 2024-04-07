@@ -10,3 +10,5 @@
   - configure view engine
   - add main layout
   - fix public styles hyperlinks
+  - render home page in hbs
+7. Convert all html views to handlebars views
