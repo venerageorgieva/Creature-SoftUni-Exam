@@ -8,7 +8,13 @@ router.get("/register", (req, res) => {
 router.post("/register", async (req, res) => {
   const { firstName, lastName, email, password, repeatPassword } = req.body;
 
-  await userService.register({ firstName, lastName, email, password, repeatPassword });
+  await userService.register({
+    firstName,
+    lastName,
+    email,
+    password,
+    repeatPassword,
+  });
 
   res.redirect("/users/login");
 });
@@ -20,8 +26,9 @@ router.get("/login", (req, res) => {
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  const token = await userService.login(email,password);
-  console.log({token});
+  const token = await userService.login(email, password);
+
+  res.cookie("token", token, { httpOnly: true });
   res.redirect("/");
 });
 

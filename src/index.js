@@ -2,6 +2,8 @@ const express = require("express");
 const handlebars = require("express-handlebars");
 const path = require("path");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+
 const { PORT, DB_URL } = require("./constants.js");
 const routes = require("./router.js");
 
@@ -11,6 +13,7 @@ const app = express();
 //Express Configurations
 app.use(express.static(path.resolve(__dirname, "./public")));
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 //Handlebars Configuration
 app.engine("hbs", handlebars.engine({ extname: "hbs" }));
@@ -23,7 +26,7 @@ async function dbConnect() {
 }
 
 dbConnect()
-  .then(()=>{
+  .then(() => {
     console.log("Successfully connected to the database!");
   })
   .catch((err) =>
