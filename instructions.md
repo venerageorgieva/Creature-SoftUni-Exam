@@ -51,3 +51,7 @@
   - decode the token
   - handle invalid token
   - provide authorization 
+18. Dynamic navigation
+  - conditional options in navigation
+  - add data to res.locals for hbs templates   
+19. Error handling  
