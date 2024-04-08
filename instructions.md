@@ -45,3 +45,9 @@
   - configure cookie-parser
   - set cookie with the token  
 16. Implement Logout
+17. Authentication middleware
+  - create middleware directory
+  - add auth middleware and import it in express configuration below cookieParser
+  - decode the token
+  - handle invalid token
+  - provide authorization 
