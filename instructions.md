@@ -55,3 +55,11 @@
   - conditional options in navigation
   - add data to res.locals for hbs templates   
 19. Error handling  
+  - add 404 page
+  - redirect missing rout to 404
+  - add global error handler (option)
+  - add error message util
+20. Show error notification
+  - show in thr main layout
+  - pass error to render in login and register pages
+  
