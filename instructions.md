@@ -32,3 +32,11 @@
 12. Hash password
   - install bcrypt   
   - hash password
+13. Login
+  - find user by email
+  - validate password with hash
+14. Generate jsonwebtoken
+  - install jsonwebtoken
+  - promisify jsonwebtoken
+  - generate secret
+  - generate token in service login  
