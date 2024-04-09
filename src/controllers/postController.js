@@ -2,7 +2,7 @@ const router = require("express").Router();
 const creatureService = require("../services/creatureService.js");
 router.get("/all", async (req, res) => {
   const creatures = await creatureService.getAll().lean();
-  
+
   res.render("post/all-posts", { creatures });
 });
 
@@ -29,12 +29,19 @@ router.get("/profile", (req, res) => {
   res.render("post/profile");
 });
 
-router.get("/:creatureId/details",async (req, res) => {
+router.get("/:creatureId/details", async (req, res) => {
   const { creatureId } = req.params;
 
   const creature = await creatureService.singleCreature(creatureId).lean();
+  
+  const {user} = req;
+  const {owner} = creature;
+  const isOwner = user?._id === owner.toString();
+  
+  console.log({user});
 
-  res.render("post/details", {creature});
+
+  res.render("post/details", { creature , isOwner});
 });
 
 module.exports = router;
