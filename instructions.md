@@ -62,4 +62,34 @@
 20. Show error notification
   - show in thr main layout
   - pass error to render in login and register pages
-  
+
+########################################################### 
+## TODO's
+
+1. Map pages to navigation in both LoggedIn and LoggedOut state
+2. Add Creature model to mongoose
+3. Implement - All Posts Page
+  - show each creature with image,name,species,description
+  - add details button to every creature
+4. Add details page (for Creatures)
+  - If no creature "There are no posts yet..."   
+  - If the user is the owner of the post it should have "Edit" and "Delete" button
+  - If the user hasn't logged in => no buttons
+  - If the user is not the owner => vote button
+5. Vote button
+  - when clicked => "Voted"
+  - redirect to the details page for the current creature
+  - show the email of the people voted
+  - if user has already voted -> "Thanks for voting" and add the email of the voted people
+6. Add Creature
+  - on success redirect to all posts page
+7. Delete Creature
+  - on success redirect to all posts page
+8. Edit Creature
+  - on success redirect to current creature page  
+9. Routes Guards - check
+10. Validations
+  - Login
+  - Register  
+  - Animals
+11. Bonus -> Profile -> show my posts-> if there are no posts -> Message  
