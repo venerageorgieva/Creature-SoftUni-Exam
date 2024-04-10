@@ -1,12 +1,15 @@
 const router = require("express").Router();
 const creatureService = require("../services/creatureService.js");
+const { isAuth } = require("../middlewares/authMiddleware.js");
+const { extractErrorMsgs } = require("../utils/errorHandler.js");
+
 router.get("/all", async (req, res) => {
   const creatures = await creatureService.getAll().lean();
 
   res.render("post/all-posts", { creatures });
 });
 
-router.get("/create", (req, res) => {
+router.get("/create", isAuth, (req, res) => {
   res.render("post/create");
 });
 
@@ -21,12 +24,23 @@ router.post("/create", async (req, res) => {
     description,
     owner: req.user,
   };
-  await creatureService.create(payload);
-  res.redirect("/posts/all");
+
+  try {
+    await creatureService.create(payload);
+    res.redirect("/posts/all");
+
+  } catch (error) {
+    const errorMessages = extractErrorMsgs(error);
+    res.status(404).render("post/create", { errorMessages });
+  }
+
 });
 
-router.get("/profile", (req, res) => {
-  res.render("post/profile");
+router.get("/profile", isAuth, async (req, res) => {
+  const { user } = req;
+
+  const myCreatures = await creatureService.getMyCreatures(user?._id).lean();
+  res.render("post/profile", { myCreatures });
 });
 
 router.get("/:creatureId/details", async (req, res) => {
@@ -37,10 +51,15 @@ router.get("/:creatureId/details", async (req, res) => {
   const { user } = req;
   const { owner } = creature;
   const isOwner = user?._id === owner.toString();
+  const hasVoted = creature.votes?.some((v) => v?._id.toString() === user?._id);
+  const joinedEmailsOfOwners = creature.votes.map((v) => v.email).join(", ");
 
-  console.log({ user });
-
-  res.render("post/details", { creature, isOwner });
+  res.render("post/details", {
+    creature,
+    isOwner,
+    hasVoted,
+    joinedEmailsOfOwners,
+  });
 });
 
 router.get("/:creatureId/edit", async (req, res) => {
@@ -68,9 +87,15 @@ router.post("/:creatureId/edit", async (req, res) => {
 router.get("/:creatureId/delete", async (req, res) => {
   const { creatureId } = req.params;
 
-  await creatureService
-  .delete(creatureId);
+  await creatureService.delete(creatureId);
   res.redirect("/posts/all");
+});
+
+router.get("/:creatureId/vote", async (req, res) => {
+  const { creatureId } = req.params;
+  const { _id } = req.user;
+  await creatureService.addVotesToCreature(creatureId, _id);
+  res.redirect(`/posts/${creatureId}/details`);
 });
 
 module.exports = router;

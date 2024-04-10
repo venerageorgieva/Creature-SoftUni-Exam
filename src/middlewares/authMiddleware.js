@@ -16,14 +16,17 @@ exports.auth = async (req, res, next) => {
       res.clearCookie("token");
       res.redirect("/users/login");
     }
+
     return;
   }
 
   next();
 };
 
-exports.isAuth = (req,res,next) => {
-    if(!req.user){
-        return res.redirect("/users/login")
-    }
-}
+exports.isAuth = (req, res, next) => {
+  if (!req.user) {
+    return res.redirect("/users/login");
+  }
+
+  next();
+};
